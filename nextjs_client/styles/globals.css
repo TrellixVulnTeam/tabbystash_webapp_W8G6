@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* make the background color of all the pages the same. this applies the css to nextjs's client side routing */
+@layer base {
+  body {
+    @apply bg-gray-800;
+  }
+}
