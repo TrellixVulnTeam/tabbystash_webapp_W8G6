@@ -18,6 +18,7 @@ const Header = (props) => {
             <Logo />
           </div>
           <div className="h-8 w-8">
+            {/* toggles hamburger menu's icon in header page when clicked*/}
             <button
               onClick={() => setMenuDisplay(!menuDisplay)}
               className="text-gray-500 hover:text-white block sm:hidden"
