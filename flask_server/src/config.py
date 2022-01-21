@@ -16,6 +16,7 @@ class Config:
     SESSION_COOKIE_NAME = os.environ.get('SESSION_COOKIE_NAME')
     SESSION_PERMANENT = False#os.environ.get('SESSION_PERMANENT')
     PERMANENT_SESSION_LIFETIME = datetime.timedelta(minutes=30)
+    #SESSION_COOKIE_HTTPONLY = False
     #GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
     #GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
     GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')

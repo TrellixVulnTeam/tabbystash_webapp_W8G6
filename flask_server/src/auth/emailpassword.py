@@ -1,5 +1,5 @@
 from src.auth import bp
-from src.models import User
+from src.models import User, TabGroup, UserTabGroups
 from src.auth.forms import EmailPasswordForm
 from flask import request, jsonify, session, current_app
 from src.extensions import ph, db#, login_manager
@@ -11,6 +11,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+import json
 import smtplib
 import logging
 
@@ -74,21 +75,13 @@ def sendEmail(token, recipient):
 def deleteAllUnverifiedUsers():
     minuteAgo = datetime.datetime.utcnow() - datetime.timedelta(minutes = 1)
     unverifiedUsersToDelete = User.query.filter(User.accountUnverified==True, User.timeAccountCreated <= minuteAgo).all() # get all users whose accounts are still unverified, and whose accounts were created more than or exactly 6 hours ago
-    print('the users: ', unverifiedUsersToDelete)
     for user in unverifiedUsersToDelete:
         db.session.delete(user)
     db.session.commit()
 
+def loggedIn() -> bool: # return whether or not the user is logged in
+    return current_user.is_authenticated
 
-
-
-
-
-
-# @bp.route('/delete')
-# def delete():
-#     deleteAllUnverifiedUsers()
-#     return jsonify({'data': 'generic data from delete'})
 
 @bp.route('/verifyEmailValidationJWT', methods=['POST'])
 def validate():
@@ -105,7 +98,6 @@ def validate():
 
 @bp.route('/resendVerificationEmail', methods=['POST'])
 def resendVerifEmail():
-    #print('the json is: ', request.json)
     print('the email is: ', request.form['email'])
     user = User.query.filter_by(email=request.form['email']).first()
     print('user: ', user)
@@ -121,13 +113,11 @@ def passNewAcc():
     newUser = User(email=request.form['email'], password=hashedPassword)
     db.session.add(newUser)
     db.session.commit()
-    #print('the jwt is: ', newUser.createEmailValidationJWT())
     sendEmail(newUser.createEmailJWT(), newUser.email)
     return jsonify({'success': 'generic data from newaccform'})
 
 @bp.route('/passLogin', methods=['POST'])
 def passLogin():
-    print('whats in /passLogin session and cookies: ', request.cookies, session)
     user = User.query.filter_by(email=request.form['email']).first()
     if not user:
         return jsonify({'error': 'user account does not exist'})# if the email given by the login form doesn't correspond to an account at all in the database, then the user can't be logged in at all
@@ -144,33 +134,34 @@ def passLogin():
 
 @bp.route('/isLoggedIn', methods=['GET'])
 def checkIfLoggedIn():
-    #breakpoint()
-    #from pudb import set_trace; set_trace()
     print('everything in the session: ', session)
     print('print everything in the cookies: ', request.cookies)
     if not request.cookies:
         print('bruh')
     print('whats in the session?: ', session)
     print('the user is logged in? ', current_user.is_authenticated)
-    if current_user.is_authenticated:
+    if loggedIn():
         return jsonify({'success': 'user logged in'})
     return jsonify({'error': 'not logged in'})
 
-@bp.route('/testSession')
-def test():
-    print('everything in the session: ', session)
-    print('print everything in the cookies: ', request.cookies)
-    if not request.cookies:
-        print('bruh')
-    # print('the config: ', current_app.config)
-   # user = User.query.get()
-    return jsonify({'the stuff in the session': session})
 
-# @login_manager.user_loader
-# def load_user(userID):
-    
-#     print('testing if i get output here')
-#     #return User.query.get(userID)
-#     return User.get(userID)
+
+@bp.route('/getTabDataFromExtension', methods=['POST'])
+def getTabData():
+    if loggedIn():
+        tabData = request.json['tabInformation']
+        print('the tab data is: ', tabData)
+        tabGroup = TabGroup(tabs=tabData) # create and store the group of tabs in the database. the group of tabs needs to be committed to the database so that it gets an auto-incremented primary key automatically from the database, that can be referenced when creating a UserTabGroups row
+        db.session.add(tabGroup)
+        db.session.commit()
+
+        userTabGroup = UserTabGroups(tabGroupID=tabGroup.id, userID=current_user.id)
+        db.session.add(userTabGroup)
+        db.session.commit()
+
+        return jsonify({'success': 'tab data stored'})
+    return jsonify({'error': 'tab data not stored'})
+
+
 
 
