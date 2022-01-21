@@ -4,11 +4,12 @@ import { useRouter } from "next/router";
 
 axios.defaults.withCredentials = true;
 
-export default function Dashboard({ loginStatus }) {
-  return <h1>hi!</h1>;
+export default function Dashboard({ data }) {
+  return <h1>{data}</h1>;
 }
 
 export async function getServerSideProps({ req }) {
+  var loggedIn = false;
   const paramsForFormData = new URLSearchParams();
   paramsForFormData.append("email", "garbageData");
   await axios
@@ -18,19 +19,28 @@ export async function getServerSideProps({ req }) {
       },
     })
     .then((res) => {
+      console.log("the res is: ", res);
+      console.log("was the .then reached?");
       if (res.data.success) {
+        console.log("inside res.data.success");
+        loggedIn = true;
         // success message returned by the backend API means that the user is logged in and can now
         // if the user IS logged in, make a request for their data to be shown in the /dashboard page
         // if the user IS NOT LOGGED IN, redirect them to the login page
-        return {
-          props: "dataToSendToClient",
-        };
       }
     })
     .catch((err) => {
       console.log(err);
     });
-
+  console.log("this means that the .then wasnt reached");
+  if (loggedIn) {
+    console.log("was the loggedIn true reached");
+    return {
+      props: {
+        data: "something",
+      },
+    };
+  }
   return {
     // if the user wasn't authenticated by the backend API, then redirect them to the login page
     redirect: {

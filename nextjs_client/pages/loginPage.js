@@ -24,9 +24,7 @@ export default function LoginPage() {
         console.log("the result from logging in: ", res);
         if (res.data.success) {
           console.log("success recieved");
-          router.push({
-            pathname: "/dashboard",
-          });
+          router.push("/dashboard");
         }
         console.log(res);
       })
