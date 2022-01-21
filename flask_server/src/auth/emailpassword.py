@@ -63,7 +63,7 @@ def sendEmail(token, recipient):
 
         print('ending of send mail')
     except BaseException as e:
-        #print('Failed to send verification email out to user: ', e)
+        print('Failed to send verification email out to user: ', recipient)
         logging.exception('exception thrown')
 
 
