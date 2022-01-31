@@ -62,7 +62,7 @@ const NewAccForm = ({ setSuccessfulRegistration }) => {
                   setEmail(event.target.value);
                 }}
                 required
-                class="border-2 border-white bg-gray-700 text-gray-900 w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
+                class="border-2 border-white bg-gray-700 text-white w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
               />
             </div>
           </div>
@@ -80,7 +80,7 @@ const NewAccForm = ({ setSuccessfulRegistration }) => {
                   setPassword(event.target.value);
                 }}
                 required
-                class="border-2 border-white bg-gray-700 text-gray-900 w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
+                class="border-2 border-white bg-gray-700 text-white w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
               />
             </div>
           </div>

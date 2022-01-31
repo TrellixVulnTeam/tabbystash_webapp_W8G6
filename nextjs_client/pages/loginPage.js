@@ -103,7 +103,7 @@ export default function LoginPage() {
                     setEmail(event.target.value);
                   }}
                   required
-                  className="border-2 border-white bg-gray-700 text-gray-900 w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
+                  className="border-2 border-white bg-gray-700 text-white w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
                 />
               </div>
             </div>
@@ -124,7 +124,7 @@ export default function LoginPage() {
                     setPassword(event.target.value);
                   }}
                   required
-                  className="border-2 border-white bg-gray-700 text-gray-900 w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
+                  className="border-2 border-white bg-gray-700 text-white w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
                 />
               </div>
             </div>
@@ -145,14 +145,10 @@ export default function LoginPage() {
   );
 }
 
-LoginPage.getLayout = function getLayout(page, keyFromAppJS) {
+LoginPage.getLayout = function getLayout(page) {
   return (
     <>
-      <Header
-        isLoginPageOrLoggedIn={true}
-        isFAQPage={false}
-        key={keyFromAppJS}
-      />
+      <Header isLoginPageOrLoggedIn={true} isFAQPage={false} />
       {page}
     </>
   );

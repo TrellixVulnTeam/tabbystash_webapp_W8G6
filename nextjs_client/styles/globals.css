@@ -8,3 +8,41 @@
     @apply bg-gray-800;
   }
 }
+
+#flex-dashboard-item-container {
+  background-color: bisque;
+  width: 600px;
+  height: 200px;
+  display: flex;
+  flex-flow: row wrap;
+  position: relative;
+}
+
+.flex-dashboard-item {
+  background-color: green;
+  margin: 4px;
+  flex: 0 1 calc(25% - 8px);
+  overflow: hidden;
+}
+
+@layer components {
+  .cards-sm {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 300px));
+    grid-auto-rows: 200px;
+    gap: 20px;
+  }
+}
+
+@layer components {
+  .cards {
+    display: grid;
+    grid-template-columns: minmax(0, 400px);
+    grid-auto-rows: 400px;
+    gap: 20px;
+  }
+}
+
+/* .tooltipShowingFullTabGroupName:hover:after {
+  content: attr()
+} */

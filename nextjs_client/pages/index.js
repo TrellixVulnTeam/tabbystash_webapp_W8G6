@@ -2,6 +2,7 @@ import Head from "next/head";
 import Header from "../components/Header";
 //import Hero from "../components/Hero";
 import React, { useEffect } from "react";
+import axios from "axios";
 // document.body.classList.add("bg-red-900");
 export default function Index() {
   // useEffect(() => {
@@ -39,13 +40,50 @@ export default function Index() {
   );
 }
 
-Index.getLayout = function getLayout(page, keyFromAppJS) {
+// in getserversideprops, check if the user is logged in (isLoggedIn), then pass that prop to the component.
+// the component and its given props will be passed to _app.jsx -> at that point, check the props given to the component, and if it has isLoggedIn = true, then pass that to getLayout -> then getLayout can immediately start using it to determine whether to render the "Dashboard" button
+
+export async function getServerSideProps() {
+  var isLoggedIn = false;
+  await axios
+    .get("http://localhost:5000/auth/isLoggedIn")
+    .then((res) => {
+      if (res.data.success) {
+        isLoggedIn = true;
+        console.log("test in get layout");
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  return {
+    props: {
+      isLoggedIn: isLoggedIn,
+    },
+  };
+}
+
+Index.getLayout = function getLayout(page, isLoggedIn) {
+  // console.log("the logged in is: ", isLoggedIn);
+  // var isLoggedIn = false;
+  // axios
+  //   .get("http://localhost:5000/auth/isLoggedIn")
+  //   .then((res) => {
+  //     if (res.data.success) {
+  //       isLoggedIn = true;
+  //       console.log("test in get layout");
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // if the user is logged in and they reach the home page, show a button that leads them to the dashboard,and don't show the button to log the user in
   return (
     <>
       <Header
         isLoginPageOrLoggedIn={false}
         isFAQPage={false}
-        key={keyFromAppJS}
+        // showDashboard={isLoggedIn}
       />
       {page}
     </>

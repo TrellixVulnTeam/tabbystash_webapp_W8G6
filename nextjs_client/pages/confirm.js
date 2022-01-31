@@ -59,14 +59,10 @@ export async function getServerSideProps({ query }) {
   };
 }
 
-Confirm.getLayout = function getLayout(page, keyFromAppJS) {
+Confirm.getLayout = function getLayout(page) {
   return (
     <>
-      <Header
-        isLoginPageOrLoggedIn={false}
-        isFAQPage={false}
-        key={keyFromAppJS}
-      />
+      <Header isLoginPageOrLoggedIn={false} isFAQPage={false} />
       {page}
     </>
   );

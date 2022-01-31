@@ -32,14 +32,10 @@ export default function SignUpPage() {
   );
 }
 
-SignUpPage.getLayout = function getLayout(page, keyFromAppJS) {
+SignUpPage.getLayout = function getLayout(page) {
   return (
     <>
-      <Header
-        isLoginPageOrLoggedIn={true}
-        isFAQPage={false}
-        key={keyFromAppJS}
-      />
+      <Header isLoginPageOrLoggedIn={true} isFAQPage={false} />
       {page}
     </>
   );

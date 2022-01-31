@@ -177,12 +177,26 @@ def storeTabData():
 
 @bp.route("/getUserTabData", methods=["GET"])
 def getUserTabData():
+    print("i am working")
+    print("the cookies: ", request.cookies)
     if loggedIn():
         allOfUsersTabGroups = current_user.userTabGroups
         tabGroups = []
         for userTabGroup in allOfUsersTabGroups:
             tabGroup = TabGroup.query.filter_by(id=userTabGroup.tabGroupID).first()
-            tabGroups.append(tabGroup.tabs)
+            # tabGroupData = {str(tabGroup.nameOfTabGroup): tabGroup.tabs}
+            tabGroups.append(
+                {
+                    "tabGroupName": tabGroup.nameOfTabGroup,
+                    "tabGroupData": {
+                        "tabs": tabGroup.tabs,
+                        "timestampTabGroupSaved": str(
+                            tabGroup.timeTabGroupCreated
+                        ),  # convert the UTC timestamp for the TabGroup into a string, so that it doesn't get converted into a GMT timestamp by the axios call from the Next.js frontend
+                    },
+                }
+            )
+            print("the timestamp for this tab group: ", tabGroup.timeTabGroupCreated)
         if not tabGroups:
             # we need to be able to tell the difference between if no data is returned from this view because the user just doesn't have any, or because there was an error with them not being logged in
             return jsonify({"success": "no tab data exists for user"})

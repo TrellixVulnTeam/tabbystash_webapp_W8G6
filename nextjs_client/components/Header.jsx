@@ -1,13 +1,15 @@
 import Image from "next/image";
 import SvgHamburgerMenu from "./HamburgerMenu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SvgBurgerMenuCancel from "./BurgerMenuCancel";
 import Logo from "./Logo";
 import Link from "next/link";
 import Popup from "reactjs-popup";
+import axios from "axios";
 
 const Header = (props) => {
   const [menuDisplay, setMenuDisplay] = useState(false);
+
   return (
     <>
       <header className="sm:flex sm:justify-between">
@@ -43,6 +45,18 @@ const Header = (props) => {
                 </a>
               </Link>
             </li>
+            {/* <li>
+              <Link href="/dashboard">
+                <a
+                  className={
+                    "sm:mt-4 px-2 block text-peach font-semibold text-center rounded hover:bg-gray-300" +
+                    (props.showDashboard ? "" : " hidden")
+                  }
+                >
+                  Dashboard
+                </a>
+              </Link>
+            </li> */}
             <li>
               <a
                 className={

@@ -4,19 +4,15 @@ import FailedToGetTabData from "../components/FailedToGetTabData";
 export default function TestPage() {
   return (
     <>
-    <FailedToGetTabData/>
+      <FailedToGetTabData />
     </>
   );
 }
 
-TestPage.getLayout = function getLayout(page, keyFromAppJS) {
+TestPage.getLayout = function getLayout(page) {
   return (
     <>
-      <Header
-        isLoginPageOrLoggedIn={false}
-        isFAQPage={false}
-        key={keyFromAppJS}
-      />
+      <Header isLoginPageOrLoggedIn={false} isFAQPage={false} />
       {page}
     </>
   );
