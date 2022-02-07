@@ -1,10 +1,13 @@
 import Head from "next/head";
 import Header from "../components/Header";
 //import Hero from "../components/Hero";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import MyModal from "../components/MyModal";
+import Example from "../components/Example";
 // document.body.classList.add("bg-red-900");
 export default function Index() {
+  const [tabGroupClicked, setTabGroupClicked] = useState(false);
   // useEffect(() => {
   //   // on component render, change the DOM's body element by adding a tailwindcss utility class to it to change it's color
   //   document.body.classList.add("bg-gray-800");
@@ -12,6 +15,8 @@ export default function Index() {
   return (
     <>
       {/* <Header /> */}
+      {/* <MyModal /> */}
+
       <div className="flex flex-col justify-between py-3 space-y-2">
         <h1 className="text-white font-semibold text-2xl py-3 mx-3">
           What is TabbyStash?
@@ -32,10 +37,11 @@ export default function Index() {
           3) Login to your account at www.tabbystash.com to view all your saved
           groups of tabs
         </h2>
-        <h2 className="text-white">
+        <h2 className="text-white relative tooltip">
           4) Share your groups of tabs with other people! (**Coming soon)
         </h2>
       </div>
+      {/* <div class="avatar" data-tooltip="Thinking Cat"></div> */}
     </>
   );
 }
@@ -64,27 +70,9 @@ export async function getServerSideProps() {
 }
 
 Index.getLayout = function getLayout(page, isLoggedIn) {
-  // console.log("the logged in is: ", isLoggedIn);
-  // var isLoggedIn = false;
-  // axios
-  //   .get("http://localhost:5000/auth/isLoggedIn")
-  //   .then((res) => {
-  //     if (res.data.success) {
-  //       isLoggedIn = true;
-  //       console.log("test in get layout");
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // if the user is logged in and they reach the home page, show a button that leads them to the dashboard,and don't show the button to log the user in
   return (
     <>
-      <Header
-        isLoginPageOrLoggedIn={false}
-        isFAQPage={false}
-        // showDashboard={isLoggedIn}
-      />
+      <Header isLoginPageOrLoggedIn={false} isFAQPage={false} />
       {page}
     </>
   );

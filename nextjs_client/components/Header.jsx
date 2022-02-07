@@ -57,17 +57,17 @@ const Header = (props) => {
                 </a>
               </Link>
             </li> */}
-            <li>
+            {/* <li>
               <a
                 className={
                   "sm:mt-4 px-2 block text-peach font-semibold text-center rounded hover:bg-gray-300" +
                   (props.isFAQPage ? " hidden" : "")
                 }
-                href="#"
+                href="/FAQ"
               >
                 FAQ
               </a>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </header>

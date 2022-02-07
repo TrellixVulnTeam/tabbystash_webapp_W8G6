@@ -16,7 +16,7 @@ const DisplayTabData = ({ tabData }) => {
       {/* className="border-2 border-white bg-gray-700 text-gray-900 w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach" */}
 
       {/* <h1>{tabData[0][0]['tabTitle']}</h1> */}
-      <div className="flex flex-col items-center bg-green-500 sm:w-full h-screen mt-10">
+      <div className="flex flex-col items-center sm:w-full h-screen mt-10">
         <label
           for="userInputForTabGroup"
           className="text-peach text-2xl font-bold"
@@ -34,6 +34,7 @@ const DisplayTabData = ({ tabData }) => {
             // filterTabGroupsByInput();
           }}
         />
+
         <div className="sm:cards-sm sm:justify-evenly cards justify-center w-full sm:max-w-7xl h-5/6 bg-gray-700 border-4 border-white mt-4 px-3 py-3 overflow-y-scroll">
           {/* <div className="flex flex-col justify-center items-center w-full sm:max-w-7xl h-full sm:max-h overflow-hidden bg-yellow-400 mt-4"> */}
           {/* <div className="grid grid-cols-4 grid-flow-row-dense bg-gray-500 px-4 py-4 h-5/6 w-5/6 overflow-y-scroll"> */}

@@ -78,68 +78,71 @@ export default function LoginPage() {
             </a>
           </Link>
         </h2>
-        <div className="py-8 px-6">
+        <div className="px-6">
           <form
             onSubmit={loginUser}
             className="space-y-6"
             action="http://localhost:5000/auth/passLogin"
             method="POST"
           >
-            <div>
+            <div className="flex flex-col justify-center items-center">
               {/*the email address input for the form*/}
               <label
                 for="email"
-                className="block text-sm font-medium text-white"
+                className="w-full sm:max-w-5xl block text-sm font-medium text-white"
               >
                 Email address
               </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={email}
-                  onChange={(event) => {
-                    setEmail(event.target.value);
-                  }}
-                  required
-                  className="border-2 border-white bg-gray-700 text-white w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
-                />
-              </div>
+
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
+                required
+                className="py-3 px-4 mt-2 w-full sm:max-w-5xl border-2 border-white bg-gray-700 text-white rounded-md focus:outline-none focus:border-peach"
+              />
             </div>
-            <div>
+            <div className="flex flex-col justify-center items-center">
               <label
                 for="password"
-                className="block text-sm font-medium text-white"
+                className="w-full sm:max-w-5xl block text-sm font-medium text-white"
               >
                 Password
               </label>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                  }}
-                  required
-                  className="border-2 border-white bg-gray-700 text-white w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
-                />
-              </div>
+
+              <input
+                id="password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
+                required
+                className="py-3 px-4 mt-2 w-full sm:max-w-5xl border-2 border-white bg-gray-700 text-white rounded-md focus:outline-none focus:border-peach"
+              />
             </div>
-            <div className="bg-white">
-              <button type="submit">Login</button>
+            <div className="w-full flex flex-col justify-center items-center">
+              <button
+                className="mt-4 w-full sm:max-w-lg px-2 py-3 bg-gray-600 rounded-xl"
+                type="submit"
+              >
+                <span className="text-white font-semibold text-xl">Login</span>
+              </button>
             </div>
           </form>
         </div>
-        <div className="px-5 py-4">
+        {/* <div className="px-5 py-4">
           <GoogleLogin
             clientId=""
             onSuccess={responseGoogle}
             responseType="code"
           />
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -71,8 +71,10 @@ def sendEmail(token, recipient):
     return
 
 
-def deleteAllUnverifiedUsers():
-    minuteAgo = datetime.datetime.utcnow() - datetime.timedelta(minutes=1)
+def deleteAllUnverifiedUsers(elapsedMinutesToDeleteBy):
+    minuteAgo = datetime.datetime.utcnow() - datetime.timedelta(
+        minutes=elapsedMinutesToDeleteBy
+    )
     # get all users whose accounts are still unverified, and whose accounts were created more than or exactly 6 hours ago
     unverifiedUsersToDelete = User.query.filter(
         User.accountUnverified == True, User.timeAccountCreated <= minuteAgo
@@ -203,3 +205,9 @@ def getUserTabData():
         return jsonify({"success": tabGroups})
     # if the user isn't logged in, then you can't return tab data for the frontend to render
     return jsonify({"error": "can't load tab data for user"})
+
+
+@bp.route("/config", methods=["GET"])
+def checkEnvVariables():
+    print("the current config is: ", current_app.config)
+    return jsonify(current_app.config)

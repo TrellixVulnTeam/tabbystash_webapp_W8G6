@@ -43,6 +43,101 @@
   }
 }
 
-/* .tooltipShowingFullTabGroupName:hover:after {
-  content: attr()
+.card-layout {
+  display: grid;
+  min-height: 0;
+  min-width: 0;
+  grid-template-rows: 75% 25%;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* .card-layout:nth-child(1) {
+  width: 100%;
+  height: 75%;
+}
+
+.card-layout:nth-child(2) {
+  width: 100%;
+  height: 25%;
+} */
+
+.height-for-tab-name {
+  height: 80px;
+}
+
+/* .tooltipShowingFullTabGroupName:hover::before,
+.tooltipShowingFullTabGroupName:hover::after {
+  position: absolute;
+  top: -0.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+}
+
+.tooltipShowingFullTabGroupName:hover::before {
+  content: attr(data-tooltip);
+  color: white;
+  padding: 0.5rem;
+  width: max-content;
+  background: yellow;
+} */
+
+/*
+.tooltipShowingFullTabGroupName::before,
+.tooltipShowingFullTabGroupName::after {
+  position: absolute;
+  content: "";
+  top: -1rem;
+  left: 50%;
+  height: 50px;
+  width: 50px;
+  background: yellow;
+  transform: translateX(-50%) translateY(-100%);
+   content: attr(data-tooltip); 
+} 
+
+.tooltip {
+  @apply invisible absolute;
+  opacity: 0;
+  transition: 1s;
+  word-break: break-all;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible z-50;
+  opacity: 1;
+}
+
+*/
+
+/* .tooltip {
+  position: relative;
+}
+
+.tooltip::before,
+.tooltip::after {
+  position: absolute;
+  left: 50%;
+}
+
+.tooltip::before {
+  content: "";
+  border-width: 10px 8px 0 8px;
+  border-color: rgba(255, 235, 11, 0.973) transparent transparent transparent;
+  margin-left: -8px;
+  top: -20px;
+} */
+
+.searchbar-dimensions {
+  flex: 0 0 10%;
+}
+
+.table-with-tabs-dimensions {
+  flex: 0 0 90%;
+}
+
+/* thead > tr > th {
+  text-align: center;
 } */
