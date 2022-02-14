@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MyModal from "../components/MyModal";
 import Example from "../components/Example";
-import "dotenv/config";
 // document.body.classList.add("bg-red-900");
 export default function Index() {
   const [tabGroupClicked, setTabGroupClicked] = useState(false);

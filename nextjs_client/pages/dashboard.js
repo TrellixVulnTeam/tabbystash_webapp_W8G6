@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import FailedToGetTabData from "../components/FailedToGetTabData";
 import DisplayTabData from "../components/DisplayTabData";
 import { useState } from "react";
-import "dotenv/config";
 
 axios.defaults.withCredentials = true;
 

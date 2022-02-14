@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import "dotenv/config";
 
 const NewAccForm = ({ setSuccessfulRegistration }) => {
   const [email, setEmail] = useState("");

@@ -4,7 +4,6 @@ import axios from "axios";
 import { Router, useRouter } from "next/router";
 import { useState } from "react";
 import GoogleLogin from "react-google-login";
-import "dotenv/config";
 
 axios.defaults.withCredentials = true;
 

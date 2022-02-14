@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import FailedEmailAuth from "../components/FailedEmailAuth";
 import SuccessEmailAuth from "../components/SuccessEmailAuth";
 import axios from "axios";
-import "dotenv/config";
 var jwt = require("jsonwebtoken");
 
 export default function Confirm({ valid }) {
