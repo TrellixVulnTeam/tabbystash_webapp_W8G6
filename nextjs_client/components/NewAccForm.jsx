@@ -24,7 +24,7 @@ const NewAccForm = ({ setSuccessfulRegistration }) => {
     paramsForFormData.append("password", password);
 
     await axios
-      .post("https://api.tabbystash.com/auth/passNewAcc", paramsForFormData)
+      .post("http://api.tabbystash.com/auth/passNewAcc", paramsForFormData)
       .then((res) => {
         console.log(res.data);
         if (res.data.success) {
@@ -45,7 +45,7 @@ const NewAccForm = ({ setSuccessfulRegistration }) => {
         <form
           onSubmit={registerUser}
           className="space-y-6"
-          action={"https://api.tabbystash.com/auth/passNewAcc"}
+          action={"http://api.tabbystash.com/auth/passNewAcc"}
           method="POST"
         >
           <div>

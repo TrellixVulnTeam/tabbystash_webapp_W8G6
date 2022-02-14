@@ -207,7 +207,12 @@ def getUserTabData():
     return jsonify({"error": "can't load tab data for user"})
 
 
-@bp.route("/config", methods=["GET"])
-def checkEnvVariables():
-    print("the current config is: ", current_app.config)
-    return jsonify(current_app.config)
+# @bp.route("/config", methods=["GET"])
+# def checkEnvVariables():
+#     print("the current config is: ", current_app.config)
+#     return jsonify(current_app.config)
+
+
+@bp.route("/html", methods=["GET"])
+def returnGenericHtml():
+    return "<h1> Hello! </h1>"
