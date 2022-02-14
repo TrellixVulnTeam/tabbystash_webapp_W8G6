@@ -3,15 +3,10 @@
 import os
 import datetime
 from dotenv import find_dotenv, load_dotenv
+import redis
 
-# from dotenv import load_dotenv
-# import sqlalchemy
-
-# load_dotenv()
 
 load_dotenv(find_dotenv())
-# cwd = os.getcwd()
-# print("my cwd is: ", cwd)
 
 
 class DevConfig:
@@ -19,10 +14,14 @@ class DevConfig:
     SESSION_TYPE = os.environ.get("SESSION_TYPE")
     # SESSION_TYPE = os.environ.get('SESSION_TYPE')
     SESSION_COOKIE_SECURE = os.environ.get("SESSION_COOKIE_SECURE")
+    SESSION_REDIS = redis.from_url(
+        os.environ.get("REDIS_URL")
+    )  # os.environ.get("REDIS_URL")
     # SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE')
     SESSION_COOKIE_NAME = os.environ.get("SESSION_COOKIE_NAME")
     SESSION_PERMANENT = False  # os.environ.get('SESSION_PERMANENT')
     PERMANENT_SESSION_LIFETIME = datetime.timedelta(minutes=30)
+    # FLASK_RUN_PORT = 5050
     # SESSION_COOKIE_HTTPONLY = False
     # GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
     # GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')

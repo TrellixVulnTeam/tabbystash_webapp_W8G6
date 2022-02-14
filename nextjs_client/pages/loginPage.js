@@ -4,6 +4,7 @@ import axios from "axios";
 import { Router, useRouter } from "next/router";
 import { useState } from "react";
 import GoogleLogin from "react-google-login";
+import "dotenv/config";
 
 axios.defaults.withCredentials = true;
 
@@ -19,7 +20,7 @@ export default function LoginPage() {
     paramsForFormData.append("password", password);
 
     await axios
-      .post("http://localhost:5000/auth/passLogin", paramsForFormData)
+      .post(process.env.API_BASE_URL + "/auth/passLogin", paramsForFormData)
       .then((res) => {
         console.log("the result from logging in: ", res);
         if (res.data.success) {
@@ -36,7 +37,7 @@ export default function LoginPage() {
   const initiateOAuthGoogle = async () => {
     console.log("initiation started");
     await axios
-      .get("http://localhost:5000/authentication/dummy")
+      .get(process.env.API_BASE_URL + "/authentication/dummy")
       .then((response) => {
         console.log("testing");
         console.log(response);
@@ -51,7 +52,7 @@ export default function LoginPage() {
   const responseGoogle = async (response) => {
     console.log("the response in general", response);
     await axios
-      .get("http://localhost:5000/auth/testGoogleCallback", {
+      .get(process.env.API_BASE_URL + "/auth/testGoogleCallback", {
         headers: {
           Authorization: `${response.code}`,
         },
@@ -82,7 +83,7 @@ export default function LoginPage() {
           <form
             onSubmit={loginUser}
             className="space-y-6"
-            action="http://localhost:5000/auth/passLogin"
+            action={process.env.API_BASE_URL + "/auth/passLogin"}
             method="POST"
           >
             <div className="flex flex-col justify-center items-center">

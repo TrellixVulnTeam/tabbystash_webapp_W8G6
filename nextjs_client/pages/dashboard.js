@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import FailedToGetTabData from "../components/FailedToGetTabData";
 import DisplayTabData from "../components/DisplayTabData";
 import { useState } from "react";
+import "dotenv/config";
 
 axios.defaults.withCredentials = true;
 
@@ -24,7 +25,7 @@ export async function getServerSideProps({ req }) {
   const paramsForFormData = new URLSearchParams();
   paramsForFormData.append("email", "garbageData");
   await axios
-    .get("http://localhost:5000/auth/isLoggedIn", {
+    .get(process.env.API_BASE_URL + "/auth/isLoggedIn", {
       headers: {
         Cookie: req.headers.cookie,
       },
@@ -50,7 +51,7 @@ export async function getServerSideProps({ req }) {
     var callForTabDataSucceeded = false;
     var tabDataFromServer = null;
     tabDataFromServer = await axios
-      .get("http://localhost:5000/auth/getUserTabData", {
+      .get(process.env.API_BASE_URL + "/auth/getUserTabData", {
         headers: {
           Cookie: req.headers.cookie,
         },

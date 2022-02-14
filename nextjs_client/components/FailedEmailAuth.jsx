@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import "dotenv/config";
 var qs = require("qs");
 
 const FailedEmailAuth = () => {
@@ -15,7 +16,10 @@ const FailedEmailAuth = () => {
     emailFormData.append("email", email);
 
     await axios
-      .post("http://localhost:5000/auth/resendVerificationEmail", emailFormData)
+      .post(
+        process.env.API_BASE_URL + "/auth/resendVerificationEmail",
+        emailFormData
+      )
       .then((res) => {
         console.log(res);
         if (res.data.success) {
@@ -42,7 +46,7 @@ const FailedEmailAuth = () => {
         <div className="mt-6 mx-auto sm:w-full sm:max-w-md">
           <form
             onSubmit={submitEmail}
-            action="http://localhost:5000/auth/resendVerificationEmail"
+            action={process.env.API_BASE_URL + "/auth/resendVerificationEmail"}
             method="POST"
           >
             <label className="block text-white text-sm" htmlFor="email"></label>

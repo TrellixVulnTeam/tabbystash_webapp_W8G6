@@ -1,4 +1,4 @@
-#!/home/kadir/tabbystash_webapp/flask_server/venv/bin/python3
+#!/home/kadir/tabbystash_webapp/flask_server/venv/bin/python3.9
 # -*- coding: utf-8 -*-
 import re
 import sys

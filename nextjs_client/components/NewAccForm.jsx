@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
+import "dotenv/config";
+
 const NewAccForm = ({ setSuccessfulRegistration }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const testCORS = async () => {
     await axios
-      .get("http://localhost:5000/auth/testCORS", {
+      .get(process.env.API_BASE_URL + "/testCORS", {
         headers: {
           Authorization: "test",
         },
@@ -23,7 +25,7 @@ const NewAccForm = ({ setSuccessfulRegistration }) => {
     paramsForFormData.append("password", password);
 
     await axios
-      .post("http://localhost:5000/auth/passNewAcc", paramsForFormData)
+      .post(process.env.API_BASE_URL + "/auth/passNewAcc", paramsForFormData)
       .then((res) => {
         console.log(res.data);
         if (res.data.success) {
@@ -44,7 +46,7 @@ const NewAccForm = ({ setSuccessfulRegistration }) => {
         <form
           onSubmit={registerUser}
           className="space-y-6"
-          action="http://localhost:5000/auth/passNewAcc"
+          action={process.env.API_BASE_URL + "/auth/passNewAcc"}
           method="POST"
         >
           <div>

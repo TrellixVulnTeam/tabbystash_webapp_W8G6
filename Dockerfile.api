@@ -1,0 +1,16 @@
+FROM python:3.9-slim
+WORKDIR /api
+
+COPY ./flask_server/src ./src
+COPY ./flask_server/tests ./tests
+COPY ./flask_server/venv ./venv
+COPY ./flask_server/.env ./flask_server/app.py ./flask_server/requirements.txt ./flask_server/boot.sh ./
+RUN pip install -r ./requirements.txt
+
+ENV ENV=dev FLASK_DEBUG=1 FLASK_ENV=development FLASK_APP=app.py
+
+RUN chmod +x boot.sh
+
+EXPOSE 5000
+
+ENTRYPOINT [ "./boot.sh" ]

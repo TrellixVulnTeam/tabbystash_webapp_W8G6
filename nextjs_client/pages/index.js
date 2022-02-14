@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MyModal from "../components/MyModal";
 import Example from "../components/Example";
+import "dotenv/config";
 // document.body.classList.add("bg-red-900");
 export default function Index() {
   const [tabGroupClicked, setTabGroupClicked] = useState(false);
@@ -52,7 +53,7 @@ export default function Index() {
 export async function getServerSideProps() {
   var isLoggedIn = false;
   await axios
-    .get("http://localhost:5000/auth/isLoggedIn")
+    .get(process.env.API_BASE_URL + "/auth/isLoggedIn")
     .then((res) => {
       if (res.data.success) {
         isLoggedIn = true;

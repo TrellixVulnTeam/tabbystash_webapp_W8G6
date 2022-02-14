@@ -6,3 +6,5 @@ flask_server/__pycache__
 
 # Ignore NPM dependencies
 nextjs_client/node_modules
+
+nextjs_client/.env
