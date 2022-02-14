@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import FailedEmailAuth from "../components/FailedEmailAuth";
 import SuccessEmailAuth from "../components/SuccessEmailAuth";
 import axios from "axios";
-import 'dotenv/config'
+import "dotenv/config";
 var jwt = require("jsonwebtoken");
 
 export default function Confirm({ valid }) {
@@ -21,7 +21,7 @@ export default function Confirm({ valid }) {
 function verifyEmailValidationJWT(token) {
   return axios({
     method: "post",
-    url: {process.env.API_BASE_URL + "/auth/verifyEmailValidationJWT"},
+    url: process.env.API_BASE_URL + "/auth/verifyEmailValidationJWT",
     data: {
       emailToken: token,
     },
