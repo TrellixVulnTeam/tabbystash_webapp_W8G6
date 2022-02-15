@@ -56,7 +56,11 @@ def create_app():
 
     app.register_blueprint(auth_bp)
 
-    cors.init_app(app, origins=["www.tabbystash.com"], supports_credentials=True)
+    cors.init_app(
+        app,
+        origins=["https://www.tabbystash.com", "https://tabbystash.com"],
+        supports_credentials=True,
+    )
 
     # _configureEmailServer()
 
