@@ -58,7 +58,11 @@ def create_app():
 
     cors.init_app(
         app,
-        origins=["https://www.tabbystash.com", "https://tabbystash.com"],
+        origins=[
+            "https://www.tabbystash.com",
+            "https://tabbystash.com",
+            "http://localhost:3000",
+        ],
         supports_credentials=True,
     )
 

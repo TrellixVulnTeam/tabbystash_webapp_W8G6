@@ -15,31 +15,34 @@ import json
 import smtplib
 import logging
 
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
 # configure our smtp connection so that we can send verification emails to users on account creation
-server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+# server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+
+
+# def sendEmailWithYagMail():
+#     yag = yagmail.SMTP()
+#     yag.send(
+#         to="abedin.kadir@gmail.com",
+#         subject="TabbyStash Verification",
+#         contents=[
+#             "This email is being sent because your email was recently registered for an account at tabbystash.com\nTo finish creating an account at tabbystash.com, click this",
+#             '<p> <a href="{tabbystash.whatever}">link</a> to verify your email address </p>',
+#         ],
+#     )
 
 
 def sendEmail(token, recipient):
-    try:
-        server_ssl.connect(host="smtp.gmail.com", port=465)
-        server_ssl.ehlo()
-
-        server_ssl.login(
-            current_app.config["MAIL_USERNAME"], current_app.config["MAIL_PASSWORD"]
-        )
-        emailMessage = MIMEMultipart("alternative")
-        emailMessage["Subject"] = "TabbyStash Verification"
-        emailMessage["From"] = current_app.config["MAIL_USERNAME"]
-        emailMessage["To"] = recipient
-
-        validationLinkForEmail = current_app.config["FRONTEND_CONFIRM_URL"] + token
-
-        textEmail = "This email is being sent because your email was recently registered for an account at tabbystash.com\nTo finish creating an account at tabbystash.com, verify your email by following the link: {url}".format(
-            url=validationLinkForEmail
-        )
-
-        htmlEmail = """\
-        <html>
+    validationLinkForEmail = current_app.config["FRONTEND_CONFIRM_URL"] + token
+    print(type("www.google.com"), "www.google.com")
+    print(type(validationLinkForEmail), validationLinkForEmail)
+    message = Mail(
+        from_email=current_app.config["MAIL_USERNAME"],
+        to_emails=recipient,
+        subject="TabbyStash Verification",
+        html_content = """<html>
         <head></head>
         <body>
             <p>This email is being sent because your email was recently registered for an account at tabbystash.com<br>
@@ -47,28 +50,78 @@ def sendEmail(token, recipient):
             </p>
         </body>
         </html>
-        """.format(
-            url=validationLinkForEmail
+        """.format(url=validationLinkForEmail),
+    )
+    try:
+        sg = SendGridAPIClient(
+            current_app.config["SENDGRID_API_KEY"]
         )
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+    except Exception as e:
+        print(e.message)
 
-        textPartOfEmail = MIMEText(textEmail, "plain")
-        htmlPartOfEmail = MIMEText(htmlEmail, "html")
 
-        emailMessage.attach(textPartOfEmail)
-        emailMessage.attach(htmlPartOfEmail)
+@bp.route("/testSendGrid")
+def sendEmailWithSendGrid(token, recipient):
+    sendEmail(token, recipient)
+    #validationLinkForEmail = current_app.config["FRONTEND_CONFIRM_URL"] + token
+    # sendEmailWithYagMail()
+    return jsonify("yag done running")
 
-        server_ssl.sendmail(
-            current_app.config["MAIL_USERNAME"], recipient, emailMessage.as_string()
-        )
 
-        # server_ssl.close()
-        server_ssl.quit()
+# def sendEmail(token, recipient):
+#     try:
+#         server_ssl.connect(host="smtp.gmail.com", port=465)
+#         server_ssl.ehlo()
 
-    except BaseException as e:
+#         server_ssl.login(
+#             current_app.config["MAIL_USERNAME"], current_app.config["MAIL_PASSWORD"]
+#         )
+#         emailMessage = MIMEMultipart("alternative")
+#         emailMessage["Subject"] = "TabbyStash Verification"
+#         emailMessage["From"] = current_app.config["MAIL_USERNAME"]
+#         emailMessage["To"] = recipient
 
-        logging.exception("exception thrown")
+#         validationLinkForEmail = current_app.config["FRONTEND_CONFIRM_URL"] + token
 
-    return
+#         textEmail = "This email is being sent because your email was recently registered for an account at tabbystash.com\nTo finish creating an account at tabbystash.com, verify your email by following the link: {url}".format(
+#             url=validationLinkForEmail
+#         )
+
+#         htmlEmail = """\
+#         <html>
+#         <head></head>
+#         <body>
+#             <p>This email is being sent because your email was recently registered for an account at tabbystash.com<br>
+#             To finish creating an account at tabbystash.com, click this <a href="{url}">link</a> to verify your email address<br>
+#             </p>
+#         </body>
+#         </html>
+#         """.format(
+#             url=validationLinkForEmail
+#         )
+
+#         textPartOfEmail = MIMEText(textEmail, "plain")
+#         htmlPartOfEmail = MIMEText(htmlEmail, "html")
+
+#         emailMessage.attach(textPartOfEmail)
+#         emailMessage.attach(htmlPartOfEmail)
+
+#         server_ssl.sendmail(
+#             current_app.config["MAIL_USERNAME"], recipient, emailMessage.as_string()
+#         )
+
+#         # server_ssl.close()
+#         server_ssl.quit()
+
+#     except BaseException as e:
+
+#         logging.exception("exception thrown")
+
+#     return
 
 
 def deleteAllUnverifiedUsers(elapsedMinutesToDeleteBy):

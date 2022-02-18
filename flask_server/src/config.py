@@ -10,13 +10,11 @@ load_dotenv(find_dotenv())
 
 
 class DevConfig:
-    print("running in dev config rere")
     SESSION_TYPE = os.environ.get("SESSION_TYPE")
     # SESSION_TYPE = os.environ.get('SESSION_TYPE')
     SESSION_COOKIE_SECURE = os.environ.get("SESSION_COOKIE_SECURE")
-    SESSION_REDIS = redis.from_url(
-        os.environ.get("REDIS_URL")
-    )  # os.environ.get("REDIS_URL")
+    # SESSION_REDIS = redis.from_url(os.environ.get("REDIS_URL"))
+    # os.environ.get("REDIS_URL")
     # SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE')
     SESSION_COOKIE_NAME = os.environ.get("SESSION_COOKIE_NAME")
     SESSION_PERMANENT = False  # os.environ.get('SESSION_PERMANENT')
@@ -36,6 +34,7 @@ class DevConfig:
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     FRONTEND_CONFIRM_URL = os.environ.get("FRONTEND_CONFIRM_URL")
+    SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
@@ -45,7 +44,6 @@ class DevConfig:
 
 
 class TestingConfig:
-    print("running in test config asdasd")
     SESSION_TYPE = os.environ.get("SESSION_TYPE")
     # SESSION_TYPE = os.environ.get('SESSION_TYPE')
     SESSION_COOKIE_SECURE = os.environ.get("SESSION_COOKIE_SECURE")
