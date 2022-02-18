@@ -24,7 +24,7 @@ export async function getServerSideProps({ req }) {
   const paramsForFormData = new URLSearchParams();
   paramsForFormData.append("email", "garbageData");
   await axios
-    .get(process.env.API_BASE_URL + "/auth/isLoggedIn", {
+    .get(process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/isLoggedIn", {
       headers: {
         Cookie: req.headers.cookie,
       },
@@ -50,7 +50,7 @@ export async function getServerSideProps({ req }) {
     var callForTabDataSucceeded = false;
     var tabDataFromServer = null;
     tabDataFromServer = await axios
-      .get(process.env.API_BASE_URL + "/auth/getUserTabData", {
+      .get(process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/getUserTabData", {
         headers: {
           Cookie: req.headers.cookie,
         },

@@ -20,7 +20,8 @@ export default function Confirm({ valid }) {
 function verifyEmailValidationJWT(token) {
   return axios({
     method: "post",
-    url: process.env.API_BASE_URL + "/auth/verifyEmailValidationJWT",
+    url:
+      process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/verifyEmailValidationJWT",
     data: {
       emailToken: token,
     },
@@ -33,7 +34,8 @@ export async function getServerSideProps({ query }) {
   //jwt.verify(emailVerificationToken);
   await axios({
     method: "post",
-    url: process.env.API_BASE_URL + "/auth/verifyEmailValidationJWT",
+    url:
+      process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/verifyEmailValidationJWT",
     data: {
       emailToken: emailVerificationToken,
     },

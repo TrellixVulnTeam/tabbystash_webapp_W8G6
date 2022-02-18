@@ -16,7 +16,7 @@ const FailedEmailAuth = () => {
 
     await axios
       .post(
-        process.env.API_BASE_URL + "/auth/resendVerificationEmail",
+        process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/resendVerificationEmail",
         emailFormData
       )
       .then((res) => {
@@ -45,7 +45,10 @@ const FailedEmailAuth = () => {
         <div className="mt-6 mx-auto sm:w-full sm:max-w-md">
           <form
             onSubmit={submitEmail}
-            action={process.env.API_BASE_URL + "/auth/resendVerificationEmail"}
+            action={
+              process.env.NEXT_PUBLIC_API_BASE_URL +
+              "/auth/resendVerificationEmail"
+            }
             method="POST"
           >
             <label className="block text-white text-sm" htmlFor="email"></label>
