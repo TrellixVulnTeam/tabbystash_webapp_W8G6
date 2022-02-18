@@ -7,7 +7,7 @@ COPY ./flask_server/venv ./venv
 COPY ./flask_server/.env ./flask_server/app.py ./flask_server/requirements.txt ./flask_server/boot.sh ./
 RUN pip install -r ./requirements.txt
 
-ENV ENV=dev FLASK_DEBUG=1 FLASK_ENV=development FLASK_APP=app.py
+ENV ENV=prod FLASK_DEBUG=1 FLASK_ENV=development FLASK_APP=app.py
 
 RUN chmod +x boot.sh
 

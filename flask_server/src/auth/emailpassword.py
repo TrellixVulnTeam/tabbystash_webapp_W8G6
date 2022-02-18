@@ -194,6 +194,8 @@ def passNewAcc():
 
 @bp.route("/passLogin", methods=["POST"])
 def passLogin():
+    print('runnign in passLogin')
+    print('what is the incoming request data: ', request.form, 'the session is: ', session)
     user = User.query.filter_by(email=request.form["email"]).first()
     if not user:
         # if the email given by the login form doesn't correspond to an account at all in the database, then the user can't be logged in at all
