@@ -35,8 +35,8 @@ export async function getServerSideProps({ req }) {
       },
     })
     .then((res) => {
-      console.log("the res is: ", res);
-      console.log("was the .then reached?");
+      // console.log("the res is: ", res);
+      // console.log("was the .then reached?");
       if (res.data.success) {
         loggedIn = true;
         console.log("inside res.data.success");
@@ -46,8 +46,8 @@ export async function getServerSideProps({ req }) {
       }
     })
     .catch((err) => {
-      console.log("error test?");
-      console.log(err);
+      // console.log("error test?");
+      console.log("the error message is: ", err);
     });
   console.log("this means that the .then wasnt reached");
   if (loggedIn) {
