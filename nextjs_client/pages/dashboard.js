@@ -21,12 +21,13 @@ export default function Dashboard(props) {
 export async function getServerSideProps({ req }) {
   console.log("the request headers: ", req.headers);
   var loggedIn = false;
-  const paramsForFormData = new URLSearchParams();
-  paramsForFormData.append("email", "garbageData");
-  console.log(
-    "a request will be made to: ",
-    process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/isLoggedIn"
-  );
+  // const paramsForFormData = new URLSearchParams();
+  // paramsForFormData.append("email", "garbageData");
+  // console.log(
+  //   "a request will be made to: ",
+  //   process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/isLoggedIn"
+  // );
+
   await axios
     .get(process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/isLoggedIn", {
       headers: {
