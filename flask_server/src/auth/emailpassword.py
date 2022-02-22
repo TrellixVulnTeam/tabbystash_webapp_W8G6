@@ -1,7 +1,7 @@
 from src.auth import bp
 from src.models import User, TabGroup, UserTabGroups
 from src.auth.forms import EmailPasswordForm
-from flask import request, jsonify, session, current_app
+from flask import request, jsonify, session, current_app, make_response
 from src.extensions import ph, db  # , login_manager
 from flask_login import login_user, current_user, login_required
 from sqlalchemy import and_
@@ -208,6 +208,19 @@ def passLogin():
         return jsonify({"success": "logged in"})
     return jsonify({"error": "failure to login"})  # incorrect password given
 
+# @bp.after_request
+# def checkResponse(response):
+#     #print('the users html response headers are: ', response.headers.getlist('Set-Cookie'))
+#     print('the response from after request is: ', response)
+#     print('the headers: ', response.headers)
+#     return response
+
+@bp.route('/testCookie')
+def checkCookie():
+    resp = make_response()
+    # resp.headers['Set-Cookie'] = 'bruh=hello'
+    resp.set_cookie('hi', 'there', domain='api.tabbystash.com')
+    return resp
 
 @bp.route("/isLoggedIn", methods=["GET"])
 def checkIfLoggedIn():

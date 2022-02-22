@@ -1,4 +1,4 @@
-from flask import Flask, current_app
+from flask import Flask
 from src.extensions import sess, db, migrate, cors  # , login_manager
 from src.auth import bp as auth_bp
 from src.models import User
