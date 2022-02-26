@@ -36,15 +36,15 @@ export async function getServerSideProps({ req }) {
       },
     })
     .then((res) => {
-      // console.log("the res is: ", res);
+      console.log("the res is: ", res);
       // console.log("was the .then reached?");
-      if (res.data.success) {
-        loggedIn = true;
-        console.log("inside res.data.success");
-        // success message returned by the backend API means that the user is logged in and can now
-        // if the user IS logged in, make a request for their data to be shown in the /dashboard page
-        // if the user IS NOT LOGGED IN, redirect them to the login page
-      }
+      // if (res.data.success) {
+      //   loggedIn = true;
+      //   console.log("inside res.data.success");
+      //   // success message returned by the backend API means that the user is logged in and can now
+      //   // if the user IS logged in, make a request for their data to be shown in the /dashboard page
+      //   // if the user IS NOT LOGGED IN, redirect them to the login page
+      // }
     })
     .catch((err) => {
       // console.log("error test?");
