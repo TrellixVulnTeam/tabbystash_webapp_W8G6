@@ -49,7 +49,9 @@ class ProdConfig:
     FRONTEND_CONFIRM_URL = os.environ.get("PROD_FRONTEND_CONFIRM_URL")
     SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SERVER_NAME='.tabbystash.com'
+    PYTHONUNBUFFERED = True
+    #SERVER_NAME='tabbystash.com:5000'
+    #SERVER_NAME = 'api.tabbystash.com'
 
 
 class TestingConfig:

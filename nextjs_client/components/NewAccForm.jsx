@@ -43,6 +43,7 @@ const NewAccForm = ({ setSuccessfulRegistration }) => {
         setSuccessfulRegistration(-2); //render an error response div in the signup page; this error pops up if there was an issue with the request itself when reaching our server
       });
   };
+
   return (
     <>
       <div className="py-8 px-6">

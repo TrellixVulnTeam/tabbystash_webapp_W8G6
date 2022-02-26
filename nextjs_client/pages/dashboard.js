@@ -30,6 +30,29 @@ export async function getServerSideProps({ req }) {
   // );
 
   await axios
+  .get(
+    process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/testIfFlaskGetsCookie", {
+      headers: {
+        Cookie: req.headers.cookie,
+      },
+    }
+  )
+  .then((res) => {
+    console.log(res.data);
+    // if (res.data.success) {
+    //   setSuccessfulRegistration(1); //render the successful registration div in the signup page
+    // } else if (res.data.error) {
+    //   setSuccessfulRegistration(0); //if an error JSON message was returned by our server, then we know that the server checked that an email address already belongs to an account
+    // }
+  })
+  .catch((err) => {
+    console.log(err);
+    // console.log("i worked");
+    // setSuccessfulRegistration(-2); //render an error response div in the signup page; this error pops up if there was an issue with the request itself when reaching our server
+  });
+};
+
+  await axios
     .get(process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/isLoggedIn", {
       headers: {
         Cookie: req.headers.cookie,

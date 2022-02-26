@@ -208,25 +208,48 @@ def passLogin():
         return jsonify({"success": "logged in"})
     return jsonify({"error": "failure to login"})  # incorrect password given
 
-# @bp.after_request
-# def checkResponse(response):
-#     #print('the users html response headers are: ', response.headers.getlist('Set-Cookie'))
-#     print('the response from after request is: ', response)
-#     print('the headers: ', response.headers)
-#     return response
+@bp.after_request
+def checkResponse(response):
+    #print('the users html response headers are: ', response.headers.getlist('Set-Cookie'))
+    print('testing')
+    print('the response from after request is: ', response)
+    print('the headers: ', response.headers)
+    return response
 
-@bp.route('/testCookie')
+@bp.route('/testCookie', methods=['POST'])
 def checkCookie():
     resp = make_response()
     # resp.headers['Set-Cookie'] = 'bruh=hello'
-    resp.set_cookie('hi', 'there', domain='api.tabbystash.com')
+    resp.set_cookie('hi', 'there', domain='tabbystash.com')
     return resp
+
+@bp.route('/testIfFlaskGetsCookie', methods=['GET'])
+def checkIfFlaskGetsCookie():
+    print('the request in flaskgetscookie is: ', request)
+    print('the headers are: ', request.headers)
+    return jsonify({'generic': 'response'})
 
 @bp.route("/isLoggedIn", methods=["GET"])
 def checkIfLoggedIn():
     if loggedIn():
         return jsonify({"success": "user logged in"})
     return jsonify({"error": "not logged in"})
+
+@bp.route('/loginTestUser')
+def loginTestUser():
+    user = User.query.filter_by(email='abedin.kadir@gmail.com').first()
+    login_user(user)
+    return jsonify({'example': 'login response'})
+
+@bp.route('/checkRequest')
+def checkRequest():
+    print('the request is: ', request.headers)
+    return jsonify({'request': str(request.headers)})
+
+# @bp.after_request
+# def changeDomainOnCookie(response):
+#     print('the response that would be sent out is: ', response.headers['Set-Cookie'])
+#     return response
 
 
 @bp.route("/storeTabDataFromExtension", methods=["POST"])
