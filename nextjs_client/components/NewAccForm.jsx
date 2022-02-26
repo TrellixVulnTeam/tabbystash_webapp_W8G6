@@ -23,9 +23,10 @@ const NewAccForm = ({ setSuccessfulRegistration }) => {
     paramsForFormData.append("email", email);
     paramsForFormData.append("password", password);
 
+    //"/auth/passNewAcc"
     await axios
       .post(
-        process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/passNewAcc",
+        process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/testCookie",
         paramsForFormData
       )
       .then((res) => {
