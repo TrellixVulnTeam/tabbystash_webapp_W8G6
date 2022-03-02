@@ -50,6 +50,7 @@ class ProdConfig:
     SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PYTHONUNBUFFERED = True
+    SESSION_COOKIE_DOMAIN = 'tabbystash.com'
     #SERVER_NAME='tabbystash.com:5000'
     #SERVER_NAME = 'api.tabbystash.com'
 

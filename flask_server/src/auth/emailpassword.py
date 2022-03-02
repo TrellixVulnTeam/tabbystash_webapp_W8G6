@@ -137,9 +137,8 @@ def deleteAllUnverifiedUsers(elapsedMinutesToDeleteBy):
     db.session.commit()
 
 
-def loggedIn():  # return whether or not the user is logged in
-    return current_user.is_authenticated
-
+def loggedIn():  # return whether or not the user is logged in, by checking if the session id (sid) is in the session
+    return 'sid' in session
 
 def deleteAllTabsForUser(user):
     allUserTabGroups = user.userTabGroups
@@ -204,8 +203,15 @@ def passLogin():
     correctPasswordGiven = ph.verify(hashedPassword, request.form["password"])
     if correctPasswordGiven:
         session.permanent = True
-        login_user(user)
-        return jsonify({"success": "logged in"})
+        print('the session should have sid now from flask-session: ', session)
+        resp = jsonify({'success': 'logged in'})
+        resp.set_cookie('sid', session['sid'])
+        # login_user(user)
+        # session['domain'] = 'tabbystash.com'
+        #resp = make_response("success: logged in")
+        #resp.set_cookie('sid', session['sid'])
+        #print('in passLogin the session is: ', session)
+        #return jsonify({"success": "logged in"})
     return jsonify({"error": "failure to login"})  # incorrect password given
 
 @bp.after_request
@@ -227,6 +233,8 @@ def checkCookie():
 def checkIfFlaskGetsCookie():
     print('the request in flaskgetscookie is: ', request)
     print('the headers are: ', request.headers)
+    print('the cookies are: ', request.cookies)
+    # print('the session\'s domain header: ', )
     return jsonify({'generic': 'response'})
 
 @bp.route("/isLoggedIn", methods=["GET"])
