@@ -30,24 +30,6 @@ export async function getServerSideProps({ req }) {
   // );
 
   await axios
-    .get(process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/loginTestUser")
-    .then((res) => {
-      console.log("the res is: ", res);
-      // console.log("was the .then reached?");
-      // if (res.data.success) {
-      //   loggedIn = true;
-      //   console.log("inside res.data.success");
-      //   // success message returned by the backend API means that the user is logged in and can now
-      //   // if the user IS logged in, make a request for their data to be shown in the /dashboard page
-      //   // if the user IS NOT LOGGED IN, redirect them to the login page
-      // }
-    })
-    .catch((err) => {
-      // console.log("error test?");
-      console.log("the error message is: ", err);
-    });
-
-  await axios
     .get(process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/testIfFlaskGetsCookie", {
       headers: {
         Cookie: req.headers.cookie,

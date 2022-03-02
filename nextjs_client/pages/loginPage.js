@@ -19,21 +19,39 @@ export default function LoginPage() {
     paramsForFormData.append("password", password);
 
     await axios
-      .post(
-        process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/passLogin",
-        paramsForFormData
-      )
+      .get(process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/loginTestUser")
       .then((res) => {
-        console.log("the result from logging in: ", res);
-        if (res.data.success) {
-          console.log("success recieved");
-          router.push("/dashboard");
-        }
-        console.log(res);
+        console.log("the res is: ", res);
+        // console.log("was the .then reached?");
+        // if (res.data.success) {
+        //   loggedIn = true;
+        //   console.log("inside res.data.success");
+        //   // success message returned by the backend API means that the user is logged in and can now
+        //   // if the user IS logged in, make a request for their data to be shown in the /dashboard page
+        //   // if the user IS NOT LOGGED IN, redirect them to the login page
+        // }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log("error test?");
+        console.log("the error message is: ", err);
       });
+
+    // await axios
+    //   .post(
+    //     process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/passLogin",
+    //     paramsForFormData
+    //   )
+    //   .then((res) => {
+    //     console.log("the result from logging in: ", res);
+    //     if (res.data.success) {
+    //       console.log("success recieved");
+    //       router.push("/dashboard");
+    //     }
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   const initiateOAuthGoogle = async () => {
