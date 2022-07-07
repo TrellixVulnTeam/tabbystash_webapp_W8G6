@@ -1,6 +1,6 @@
 ## About The Project
 
-This project was made because I wanted to keep track of an excessive amount of tabs I would have open during programming related tasks. If I was debugging a programming problem and all the tabs in my current browser window were related to that problem, instead of losing that context, I thought it would make more sense to group and store those tabs together to view later. This is where TabbyStash comes in, a web app which integrates with a custom browser extension.
+This project was made because I wanted to keep track of an excessive amount of tabs I would have open during programming related tasks. If I was debugging a programming problem and all the tabs in my current browser window were related to that problem, instead of losing that context, I thought it would make more sense to group and store those tabs together to view later. This is where TabbyStash comes in, a web app which integrates with a [custom browser extension](https://github.com/auto-kad/cra_tabbystash_extension).
 
 The workflow for using the web app is:
 1) Create an account
