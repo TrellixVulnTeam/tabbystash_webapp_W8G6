@@ -19,69 +19,17 @@ export default function LoginPage() {
     paramsForFormData.append("password", password);
 
     await axios
-      .get(process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/loginTestUser")
+      .post(
+        process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/passLogin",
+        paramsForFormData
+      )
       .then((res) => {
-        console.log("the res is: ", res);
-        // console.log("was the .then reached?");
-        // if (res.data.success) {
-        //   loggedIn = true;
-        //   console.log("inside res.data.success");
-        //   // success message returned by the backend API means that the user is logged in and can now
-        //   // if the user IS logged in, make a request for their data to be shown in the /dashboard page
-        //   // if the user IS NOT LOGGED IN, redirect them to the login page
-        // }
+        if (res.data.success) {
+          router.push("/dashboard");
+        }
       })
       .catch((err) => {
-        // console.log("error test?");
-        console.log("the error message is: ", err);
-      });
-
-    // await axios
-    //   .post(
-    //     process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/passLogin",
-    //     paramsForFormData
-    //   )
-    //   .then((res) => {
-    //     console.log("the result from logging in: ", res);
-    //     if (res.data.success) {
-    //       console.log("success recieved");
-    //       router.push("/dashboard");
-    //     }
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
-
-  const initiateOAuthGoogle = async () => {
-    console.log("initiation started");
-    await axios
-      .get(process.env.NEXT_PUBLIC_API_BASE_URL + "/authentication/dummy")
-      .then((response) => {
-        console.log("testing");
-        console.log(response);
-        window.location = response.data.url;
-      })
-      .catch((err) => {
-        console.log("err");
         console.log(err);
-      });
-  };
-
-  const responseGoogle = async (response) => {
-    console.log("the response in general", response);
-    await axios
-      .get(process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/testGoogleCallback", {
-        headers: {
-          Authorization: `${response.code}`,
-        },
-      })
-      .then((responseAuth) => {
-        console.log("testing success response", responseAuth);
-      })
-      .catch((errAuth) => {
-        console.log("testing error", errAuth);
       });
   };
 
@@ -157,13 +105,6 @@ export default function LoginPage() {
             </div>
           </form>
         </div>
-        {/* <div className="px-5 py-4">
-          <GoogleLogin
-            clientId=""
-            onSuccess={responseGoogle}
-            responseType="code"
-          />
-        </div> */}
       </div>
     </>
   );

@@ -1,10 +1,8 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import TableWithTabs from "./TableWithTabs";
-// import { ExclamationIcon } from "@heroicons/react/outline";
 
-export default function Example({ resetTabGroupOnClickState, tabData }) {
+export default function PopupMenu({ resetTabGroupOnClickState, tabData }) {
   const [open, setOpen] = useState(true);
 
   const cancelButtonRef = useRef(null);
@@ -65,7 +63,6 @@ export default function Example({ resetTabGroupOnClickState, tabData }) {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            {/* sm:max-w-lg sm:w-full */}
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle w-[80vw] h-[90vh]">
               <div className="flex flex-col w-full h-full">
                 <div className="searchbar-dimensions bg-gray-800">
@@ -84,11 +81,8 @@ export default function Example({ resetTabGroupOnClickState, tabData }) {
                       value={userInputForTabs}
                       onChange={(event) => {
                         setUserInputForTabs(event.target.value);
-                        // filterTabGroupsByInput();
-                        // filterTabDataByUserInput(event.target.value);
                       }}
                     />
-                    {/* <h1 className="text-white text-center ">bruh</h1> */}
                   </div>
                 </div>
                 <TableWithTabs tabs={filterTabDataByUserInput()} />

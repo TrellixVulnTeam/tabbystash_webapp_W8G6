@@ -5,32 +5,18 @@ const NewAccForm = ({ setSuccessfulRegistration }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const testCORS = async () => {
-    await axios
-      .get(process.env.NEXT_PUBLIC_API_BASE_URL + "/testCORS", {
-        headers: {
-          Authorization: "test",
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
-
   const registerUser = async (event) => {
     event.preventDefault();
 
     const paramsForFormData = new URLSearchParams();
     paramsForFormData.append("email", email);
     paramsForFormData.append("password", password);
-
-    //"/auth/passNewAcc"
     await axios
       .post(
-        process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/testCookie",
+        process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/passNewAcc",
         paramsForFormData
       )
       .then((res) => {
-        console.log(res.data);
         if (res.data.success) {
           setSuccessfulRegistration(1); //render the successful registration div in the signup page
         } else if (res.data.error) {
@@ -38,65 +24,73 @@ const NewAccForm = ({ setSuccessfulRegistration }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
-        console.log("i worked");
         setSuccessfulRegistration(-2); //render an error response div in the signup page; this error pops up if there was an issue with the request itself when reaching our server
       });
   };
 
   return (
     <>
-      <div className="py-8 px-6">
+      <div className="px-6">
         <form
           onSubmit={registerUser}
           className="space-y-6"
           action={process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/passNewAcc"}
           method="POST"
         >
-          <div>
+          <div className="flex flex-col justify-center items-center">
             {/*the email address input for the form*/}
-            <label for="email" class="block text-sm font-medium text-white">
+            <label
+              for="email"
+              className="w-full sm:max-w-5xl block text-sm font-medium text-white"
+            >
               Email address
             </label>
-            <div class="mt-2">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={email}
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
-                required
-                class="border-2 border-white bg-gray-700 text-white w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
-              />
-            </div>
+            {/* <div class="mt-2"> */}
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+              required
+              className="py-3 px-4 mt-2 w-full sm:max-w-5xl border-2 border-white bg-gray-700 text-white rounded-md focus:outline-none focus:border-peach"
+            />
+            {/* </div> */}
           </div>
-          <div>
-            <label for="password" class="block text-sm font-medium text-white">
+          <div className="flex flex-col justify-center items-center">
+            <label
+              for="password"
+              className="w-full sm:max-w-5xl block text-sm font-medium text-white"
+            >
               Password
             </label>
-            <div class="mt-2">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-                required
-                class="border-2 border-white bg-gray-700 text-white w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
-              />
-            </div>
+            {/* <div class="mt-2"> */}
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+              required
+              className="py-3 px-4 mt-2 w-full sm:max-w-5xl border-2 border-white bg-gray-700 text-white rounded-md focus:outline-none focus:border-peach"
+            />
+            {/* </div> */}
           </div>
-          <div className="bg-white w-4 sm:w-5">
-            <button type="submit">i am a button</button>
+          <div className="w-full flex flex-col justify-center items-center">
+            <button
+              className="mt-4 w-full sm:max-w-lg px-2 py-3 bg-gray-600 rounded-xl"
+              type="submit"
+            >
+              <span className="text-white font-semibold text-xl">
+                Create new account
+              </span>
+            </button>
           </div>
         </form>
-        <div>
-          <button onClick={testCORS}>CORS</button>
-        </div>
       </div>
     </>
   );

@@ -9,11 +9,7 @@ export default function Confirm({ valid }) {
   const router = useRouter();
   console.log("the value of valid: ", valid);
   return (
-    <>
-      {/* <div className="text-white ">hi!</div> */}
-      {valid == "verified" ? <SuccessEmailAuth /> : <FailedEmailAuth />}
-      {/* <FailedEmailAuth /> */}
-    </>
+    <>{valid == "verified" ? <SuccessEmailAuth /> : <FailedEmailAuth />}</>
   );
 }
 
@@ -29,6 +25,10 @@ function verifyEmailValidationJWT(token) {
 }
 
 export async function getServerSideProps({ query }) {
+  console.log(
+    "the value of next public is: ",
+    process.env.NEXT_PUBLIC_API_BASE_URL
+  );
   var response = "";
   const emailVerificationToken = query.verifyToken;
   //jwt.verify(emailVerificationToken);

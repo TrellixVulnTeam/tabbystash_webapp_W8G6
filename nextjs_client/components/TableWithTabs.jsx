@@ -55,12 +55,6 @@ const TableWithTabs = ({ tabs }) => {
       </div>
     );
   }
-  //   const [tabs, setTabs] = useState(tabData);
-  //   const [userInputForTabName, setUserInputForTabName] = useState("");
-
-  //   <table className="w-[1408px] h-[722.95px] block overflow-y-scroll border-collapse table-fixed"></table>
-
-  //   <tr className="bg-gray-700 w-[1408px]"></tr>
 
   // Idea to make the table have "fixed" headers, which dont change shape if there are 0 rows -> set the table to be fixed when there are 0 rows?
 

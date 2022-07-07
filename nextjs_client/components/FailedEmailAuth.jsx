@@ -8,7 +8,6 @@ const FailedEmailAuth = () => {
 
   const submitEmail = async (event) => {
     event.preventDefault();
-    console.log("test: ", email);
     setEmailSent(true);
 
     const emailFormData = new URLSearchParams();
@@ -20,9 +19,7 @@ const FailedEmailAuth = () => {
         emailFormData
       )
       .then((res) => {
-        console.log(res);
         if (res.data.success) {
-          console.log("the success: ", res.data.success);
           setTimeout(() => {
             setEmailSent(false);
           }, 5000);
@@ -73,6 +70,4 @@ const FailedEmailAuth = () => {
     </>
   );
 };
-//"border rounded w-full sm:max-sm bg-gray-700"
-//"border-2 border-white bg-gray-700 text-gray-900 w-full rounded-md py-3 px-4 focus:outline-none focus:border-peach"
 export default FailedEmailAuth;

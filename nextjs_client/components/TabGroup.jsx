@@ -1,4 +1,3 @@
-import { parseISO } from "date-fns";
 import {
   format,
   formatInTimeZone,
@@ -6,7 +5,7 @@ import {
   zonedTimeToUtc,
 } from "date-fns-tz";
 import { useEffect, useRef, useState } from "react";
-import Example from "./Example";
+import PopupMenu from "./PopupMenu";
 
 const TabGroup = ({ tabGroupName, tabGroupData, gridPosition }) => {
   const timestampTabGroupSaved = tabGroupData.timestampTabGroupSaved;
@@ -34,22 +33,6 @@ const TabGroup = ({ tabGroupName, tabGroupData, gridPosition }) => {
   );
 
   function canTabGroupNameBeTruncated(e) {
-    console.log(
-      "i am tab group name: ",
-      tabGroupName,
-      " and my offsetwidth is: ",
-      e.offsetWidth,
-      " and my scrollwidth is: ",
-      e.scrollWidth
-    );
-    // return e.offsetWidth < e.scrollWidth;
-    // return e.scrollWidth > e.clientWidth;
-    console.log(
-      "is scroll height > : ",
-      e.scrollHeight > e.clientHeight,
-      e.scrollHeight,
-      e.clientHeight
-    );
     console.log("the line height is: ", e.clientHeight);
     return e.scrollHeight > e.clientHeight;
   }
@@ -58,10 +41,8 @@ const TabGroup = ({ tabGroupName, tabGroupData, gridPosition }) => {
   function checkIfTabGroupNameCanBeTruncated() {
     if (canTabGroupNameBeTruncated(tabNameElement.current)) {
       setTextCanBeTruncated(true);
-      // console.log("ran into true");
     } else {
       setTextCanBeTruncated(false);
-      // console.log("ran into false");
     }
   }
 
@@ -97,27 +78,8 @@ const TabGroup = ({ tabGroupName, tabGroupData, gridPosition }) => {
     }
     return "h-[1.75rem] ";
   }
-
-  // function showTabGroupModal() {
-  //   console.log("should render");
-  //   return <Example />;
-  // }
-
-  // className={"col-start-" + gridPosition.toString() + " " + "bg-purple-600"}
-
-  //   <button
-  //   onClick={() => {
-  //     setTabGroupClicked(!tabGroupClicked);
-  //   }}
-  // >
-  //   click me!
-  //   {tabGroupClicked ? (
-  //     <Example resetTabGroupOnClickState={setTabGroupClicked} />
-  //   ) : null}
-  // </button>
   function openTabMenu(e) {
     e.preventDefault();
-    console.log("i was clicked!");
     setTabMenuOpened(true);
   }
   return (
@@ -127,47 +89,14 @@ const TabGroup = ({ tabGroupName, tabGroupData, gridPosition }) => {
       className="cursor-pointer flex flex-col justify-center bg-gray-800 border-2 border-peach rounded-lg"
     >
       {tabMenuOpened ? (
-        <Example
+        <PopupMenu
           resetTabGroupOnClickState={setTabMenuOpened}
           tabData={tabGroupData}
         />
       ) : null}
-      {/* <Example /> */}
-      {/* // <div className="card-layout bg-gray-800 border-2 border-peach rounded-lg"> */}
-      {/* <div className="relative flex flex-col-reverse justify-center items-center bg-gray-800 border-2 border-peach rounded-lg"> */}
-      {/* <div className="h-4 w-6"> */}
-      {/* <h1
-        className={
-          (textCanBeTruncated ? "truncate " : "") +
-          "text-center w-full absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 px-3 text-white font-bold font-mono text-5xl sm:text-3xl"
-        }
-      >
-        {tabGroupName}
-      </h1> */}
-      {/* <div className="flex flex-col justify-center items-center w-full h-3/6"> */}
-      {/* <div className="flex flex-col w-full h-full justify-center items-center"> */}
-      {/* <h1 className="text-white text-center">
-          testasdsadasdadasdasdasdasdasdasdasdad asdadasdasdasdasaasd
-        </h1> */}
-      {/* <h1
-        ref={tabNameElement}
-        className={
-          // (textCanBeTruncated
-          //   ? "truncate flex flex-col justify-center "
-          //   : "break-all ") +
-          "hidden flex flex-col justify-center break-all line-clamp w-full h-2/5 text-center text-white font-bold font-mono text-5xl sm:text-sm"
-        }
-      >
-        {tabGroupName +
-          "aaaaaaaaaaaaaaasssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaasss" +
-          " "}
-      </h1> */}
       <h1
-        // data-tooltip-target="tooltip-default"
         ref={tabNameElement}
-        // data-tooltip={"AAAAAASDSADSADDSADAA"}
         className={
-          // (textCanBeTruncated ? "line-clamp-2 h-[3.50rem] " : "h-[1.75rem] ") +
           stylesToAddIfNameCanBeTruncated() +
           "px-2 mt-auto break-all text-center text-white font-bold font-mono text-5xl sm:text-lg"
         }
@@ -175,42 +104,9 @@ const TabGroup = ({ tabGroupName, tabGroupData, gridPosition }) => {
         {tabGroupName}
       </h1>
 
-      {/* <h1
-        ref={tabNameElement}
-        className={
-          // (textCanBeTruncated ? "line-clamp-2 " : "") +
-          "mt-auto text-white text-center break-all px-2 font-bold leading-[1em] h-[2em] line-clamp-2"
-        }
-      >
-        Lorem
-        ipsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssum
-        dolor sit amet, consectetur adipiscing elit. Sed molestie, massa sit
-        amet sollicitudin maximus, elit massa mattis nunc, vitae lacinia dui
-        mauris vitae magna. Sed egestas dictum libero vel commodo. Aenean
-        rhoncus lectus quis elit blandit, sodales lobortis leo pretium.
-        Vestibulum tristique nisi id eros tempus rutrum. Praesent eu eleifend
-        libero. Nulla vel arcu
-        molestie,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa scelerisque felis
-        ac, sollicitudin ex. Morbi lacinia velit lorem, at malesuada tellus
-        euismod eget. Vestibulum ante ipsum primis in faucibus orci luctus et
-        ultrices posuere cubilia curae; Fusce iaculis orci ac erat commodo, et
-        venenatis erat varius. Donec maximus id dui eu pretium. Aliquam
-        fringilla aliquet lacus in dapibus. Integer diam metus, pulvinar vitae
-        maximus id, suscipit vitae lorem. Quisque elementum tortor vitae lacus
-        fringilla, eu consequat nisl tristique. Etiam tempor, quam a cursus
-        molestie, turpis magna rhoncus odio, eu imperdiet est dolor ac nisi.
-        Donec suscipit lorem ac augue lobortis, ut accumsan dolor maximus. Duis
-        volutpat, eros a ornare eleifend, orci libero tincidunt arcu, sed
-        vestibulum sapien mauris a libero.{" "}
-      </h1> */}
-      {/* </div> */}
-
-      {/* </div> */}
-
       <h1 className="mt-auto pb-2 text-center text-white font-bold font-mono text-2xl sm:text-xl">
         {amPmTimestamp.toString()}
       </h1>
-      {/* <h1 className="text-white text-center">{innerWidth}</h1> */}
     </div>
   );
 };

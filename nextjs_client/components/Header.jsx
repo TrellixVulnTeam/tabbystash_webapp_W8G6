@@ -15,8 +15,6 @@ const Header = (props) => {
       <header className="sm:flex sm:justify-between">
         <div className="flex justify-between mx-5 mt-5 items-center">
           <div className="h-8 w-7 mt-2">
-            {/* <SvgCatInBox />
-            <h1 className="text-peach font-bold">TabbyStash</h1> */}
             <Logo />
           </div>
           <div className="h-8 w-8">
@@ -45,29 +43,6 @@ const Header = (props) => {
                 </a>
               </Link>
             </li>
-            {/* <li>
-              <Link href="/dashboard">
-                <a
-                  className={
-                    "sm:mt-4 px-2 block text-peach font-semibold text-center rounded hover:bg-gray-300" +
-                    (props.showDashboard ? "" : " hidden")
-                  }
-                >
-                  Dashboard
-                </a>
-              </Link>
-            </li> */}
-            {/* <li>
-              <a
-                className={
-                  "sm:mt-4 px-2 block text-peach font-semibold text-center rounded hover:bg-gray-300" +
-                  (props.isFAQPage ? " hidden" : "")
-                }
-                href="/FAQ"
-              >
-                FAQ
-              </a>
-            </li> */}
           </ul>
         </nav>
       </header>

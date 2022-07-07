@@ -1,45 +1,37 @@
-import Head from "next/head";
 import Header from "../components/Header";
-//import Hero from "../components/Hero";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import MyModal from "../components/MyModal";
-import Example from "../components/Example";
-// document.body.classList.add("bg-red-900");
+
 export default function Index() {
   const [tabGroupClicked, setTabGroupClicked] = useState(false);
-  // useEffect(() => {
-  //   // on component render, change the DOM's body element by adding a tailwindcss utility class to it to change it's color
-  //   document.body.classList.add("bg-gray-800");
-  // });
   return (
     <>
-      {/* <Header /> */}
-      {/* <MyModal /> */}
-
-      <div className="flex flex-col justify-between py-3 space-y-2">
-        <h1 className="text-white font-semibold text-2xl py-3 mx-3">
+      <div className="flex flex-col justify-between py-3 space-y-2 mt-5">
+        <h1 className="text-white font-semibold text-5xl py-3 mx-3 text-center">
           What is TabbyStash?
         </h1>
-        <h2 className="text-white py-3 px-3 text-left">
+        <h2 className="py-3 px-3 text-center text-4xl font-semibold text-peach">
           It lets you save tabs while browsing on the internet so you never lose
           them!
         </h2>
       </div>
       <div className="mt-3 mx-5">
-        <h1 className="text-white text-center">How does it work?</h1>
-        <h2 className="text-white">1) Make an account at www.tabbystash.com</h2>
-        <h2 className="text-white">
-          2) Install the Firefox extension and use it to save all your tabs in
-          your browser window
-        </h2>
-        <h2 className="text-white">
-          3) Login to your account at www.tabbystash.com to view all your saved
-          groups of tabs
-        </h2>
-        <h2 className="text-white relative tooltip">
-          4) Share your groups of tabs with other people! (**Coming soon)
-        </h2>
+        <h1 className="text-white text-center text-5xl font-bold">
+          How does it work?
+        </h1>
+        <ol className="flex flex-col justify-items items-center mt-6 gap-y-6">
+          <li className="text-white text-3xl font-semibold">
+            1) Make an account at www.tabbystash.com
+          </li>
+          <li className="text-white text-3xl font-semibold">
+            2) Install the Firefox extension and use it to save all your tabs in
+            your browser window
+          </li>
+          <li className="text-white text-3xl font-semibold">
+            3) Login to your account at www.tabbystash.com to view all your
+            saved groups of tabs
+          </li>
+        </ol>
       </div>
       {/* <div class="avatar" data-tooltip="Thinking Cat"></div> */}
     </>
@@ -56,7 +48,6 @@ export async function getServerSideProps() {
     .then((res) => {
       if (res.data.success) {
         isLoggedIn = true;
-        console.log("test in get layout");
       }
     })
     .catch((err) => {

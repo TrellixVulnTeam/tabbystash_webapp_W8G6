@@ -1,12 +1,8 @@
-#!/home/kadir/tabbystash_webapp/flask_server/venv/bin/python3.9
-# EASY-INSTALL-ENTRY-SCRIPT: 'dkimpy==1.0.5','console_scripts','dknewkey'
-__requires__ = 'dkimpy==1.0.5'
+#!/home/kadir/tabbystash_webapp/flask_server/venv/bin/python
+# -*- coding: utf-8 -*-
 import re
 import sys
-from pkg_resources import load_entry_point
-
+from dkim.dknewkey import main
 if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
-    sys.exit(
-        load_entry_point('dkimpy==1.0.5', 'console_scripts', 'dknewkey')()
-    )
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())

@@ -35,6 +35,7 @@ from sendgrid.helpers.mail import Mail
 
 
 def sendEmail(token, recipient):
+    print(current_app.config)
     validationLinkForEmail = current_app.config["FRONTEND_CONFIRM_URL"] + token
     print(type("www.google.com"), "www.google.com")
     print(type(validationLinkForEmail), validationLinkForEmail)
@@ -160,7 +161,9 @@ def deleteAllTabGroups():
 
 @bp.route("/verifyEmailValidationJWT", methods=["POST"])
 def validate():
+    print('beginning of validate jwt route')
     userID = User.validateEmailJWT(request.json["emailToken"])
+    print('value of userID', userID)
     if not userID:
         return jsonify({"error": "the token wasn't valid"})
     user = User.query.filter_by(id=userID).first()
@@ -193,8 +196,6 @@ def passNewAcc():
 
 @bp.route("/passLogin", methods=["POST"])
 def passLogin():
-    print('runnign in passLogin')
-    print('what is the incoming request data: ', request.form, 'the session is: ', session)
     user = User.query.filter_by(email=request.form["email"]).first()
     if not user:
         # if the email given by the login form doesn't correspond to an account at all in the database, then the user can't be logged in at all
@@ -203,9 +204,11 @@ def passLogin():
     correctPasswordGiven = ph.verify(hashedPassword, request.form["password"])
     if correctPasswordGiven:
         session.permanent = True
-        print('the session should have sid now from flask-session: ', session)
-        resp = jsonify({'success': 'logged in'})
-        resp.set_cookie('sid', session['sid'])
+        #print('the session should have sid now from flask-session: ', session)
+        login_user(user)
+        return jsonify({'success': 'logged in'})
+        #resp = jsonify({'success': 'logged in'})
+        #resp.set_cookie('sid', session['sid'])
         # login_user(user)
         # session['domain'] = 'tabbystash.com'
         #resp = make_response("success: logged in")
@@ -239,7 +242,7 @@ def checkIfFlaskGetsCookie():
 
 @bp.route("/isLoggedIn", methods=["GET"])
 def checkIfLoggedIn():
-    if loggedIn():
+    if current_user.is_authenticated:
         return jsonify({"success": "user logged in"})
     return jsonify({"error": "not logged in"})
 
@@ -262,7 +265,7 @@ def checkRequest():
 
 @bp.route("/storeTabDataFromExtension", methods=["POST"])
 def storeTabData():
-    if loggedIn():
+    if current_user.is_authenticated:
         tabGroup = TabGroup(
             tabs=request.json["tabData"], nameOfTabGroup=request.json["tabGroupName"]
         )  # create and store the group of tabs in the database. the group of tabs needs to be committed to the database so that it gets an auto-incremented primary key automatically from the database, that can be referenced when creating a UserTabGroups row
@@ -278,9 +281,7 @@ def storeTabData():
 
 @bp.route("/getUserTabData", methods=["GET"])
 def getUserTabData():
-    print("i am working")
-    print("the cookies: ", request.cookies)
-    if loggedIn():
+    if current_user.is_authenticated:
         allOfUsersTabGroups = current_user.userTabGroups
         tabGroups = []
         for userTabGroup in allOfUsersTabGroups:
@@ -300,7 +301,7 @@ def getUserTabData():
             print("the timestamp for this tab group: ", tabGroup.timeTabGroupCreated)
         if not tabGroups:
             # we need to be able to tell the difference between if no data is returned from this view because the user just doesn't have any, or because there was an error with them not being logged in
-            return jsonify({"success": "no tab data exists for user"})
+            return jsonify({"success": []}) # no data for the user
         return jsonify({"success": tabGroups})
     # if the user isn't logged in, then you can't return tab data for the frontend to render
     return jsonify({"error": "can't load tab data for user"})
