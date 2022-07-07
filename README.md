@@ -15,5 +15,23 @@ The tech stack for this project was:
 * Backend: Flask (Python), Redis, Postgres
 
 Images and gifs of the web app in action:
+1. Main page of web app
 ![Front page](tabby_1.png)
 
+2. Sign in page
+![Sign in page](tabby_2.png)
+
+3. Create an account page
+![Create account page](tabby_3.png)
+
+4. View groups of tabs page
+![Tab group page](tabby_4.png)
+
+5. View tabs within tab groups page
+![Tabs in tab group page](tabby_7.png)
+
+6. Process of using TabbyStash
+![Using tabbystash](tabby_5.gif)
+
+7. Filtering through tab groups and tabs within tab groups
+![Filtering in tabbystash](tabby_6.gif) 
